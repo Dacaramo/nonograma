@@ -13,4 +13,5 @@ Marca con una X las casillas según los números que aparecen en el exterior del
 ## Tableros de juego
 
 |![Tablero 1](/images/tablero1.png)|![Tablero 2](/images/tablero2.png)|![Tablero 3](/images/tablero3.png)|
+|:--------------------------------:|:--------------------------------:|:--------------------------------:|
 |**Tablero 1**|**Tablero 2**|**Tablero 3**|
