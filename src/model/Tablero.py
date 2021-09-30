@@ -9,8 +9,8 @@ class Tablero:
     self.cuadricula = [[]] #[.][.][0] -> Lo que debería ir - [.][.][1] -> Lo que el usuario coloca
 
   @staticmethod
-  def desdeJson(cadenaJson):
-    dic = json.loads(cadenaJson)
+  def desdeJson(file):
+    dic = json.load(file)
     return Tablero(**dic)
 
   def llenarCuadricula(cuadricula):

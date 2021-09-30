@@ -14,9 +14,78 @@ def mostrarInstrucciones():
           "| por de 3 casillas contiguas con una X y el otro formado por 5 casillas consecutivas con una X. |")
     print("+------------------------------------------------------------------------------------------------+")
 
+def tamSubListaMasGrande(listaDeListas):
+    max = 0
+    for lista in listaDeListas:
+        if(len(lista) > max):
+            max = len(lista)
+    
+    return max
+
 def mostrarTablero(tablero):
-    print("listaV -> ", tablero.listaV)
-    print("listaH -> ", tablero.listaH)
+    maxV = tamSubListaMasGrande(tablero.listaV)
+    maxH = tamSubListaMasGrande(tablero.listaH)
+
+    print("\n", end = "")
+    for c in range(tablero.ncol):
+        if(c == 0):
+            print((" " * (maxV + 1)) + "+---", end = "")
+        else:
+            print("+---", end = "")
+    print("+", end = "")
+    for i in range(maxH):
+        print("\n", end = "")
+        j = 0
+        for c in range((tablero.ncol * 4) + 1):
+            if(c == 0 or c % 4 == 0):
+                if(c == 0):
+                    print((" " * (maxV + 1)) + "|", end = "")
+                else:
+                    print("|", end = "")
+            elif(c % 2 == 0 and not c % 4 == 0):
+                if(i < len(tablero.listaH[j])):
+                    print(tablero.listaH[j][i], end = "")
+                else:
+                    print(" ", end = "")
+                j+=1
+            else:
+                print(" ", end = "")
+    print("\n", end = "")
+    for c in range(tablero.ncol):
+        if(c == 0):
+            print("+" + ("-" * maxV) + "+---", end = "")
+        else:
+            print("+---", end = "")
+    print("+", end = "")
+    for k in range(tablero.nfil):
+        print("\n", end = "")
+        for c in range((tablero.ncol * 4) + 1):
+            if(c == 0 or c % 4 == 0):
+                if(c == 0):
+                    print("|", end = "")
+                    for entero in tablero.listaV[k]:
+                        diferencia = maxV - len(tablero.listaV[k]) 
+                        if(diferencia == 0):
+                            print(str(entero), end = "")
+                        elif(diferencia > 0):
+                            print((" " * diferencia) + str(entero), end = "")
+                    print("|", end = "")
+                else:
+                    print("|", end = "")
+            elif(c % 2 == 0 and not c % 4 == 0):
+                print(" ", end = "")
+            else:
+                print(" ", end = "")
+        print("\n", end = "")
+        for c in range(tablero.ncol):
+            if(c == 0):
+                print("+" + ("-" * maxV) + "+---", end = "")
+            else:
+                print("+---", end = "")
+        print("+", end = "")
+
+
+
 
 def jugar():
     print("\t\t\nEscojer un tablero de juego\n\n" 
@@ -34,10 +103,12 @@ def jugar():
 
     file = open(PATH, "r")
 
-    mostrarTablero(Tablero.desdeJson(json.dumps(file.read())))
+    salir = False
+    while(salir != True):
+        mostrarTablero(Tablero.desdeJson(file))
 
-    nfil = input("\n\t\tDigita el numero de fila: ")
-    ncol = input("\n\t\tDigita el numero de columna: ")
+        nfil = input("\n\n\t\tDigita el numero de fila: ")
+        ncol = input("\n\t\tDigita el numero de columna: ")
 
 #######################################################
 
