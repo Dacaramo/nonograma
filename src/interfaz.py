@@ -22,6 +22,38 @@ def tamSubListaMasGrande(listaDeListas):
     
     return max
 
+def debugearCuadricula3D(tablero):
+    print("Primera fila")
+    print("c1 -> [" + str(tablero.cuadricula[0][0][0]) + "," + str(tablero.cuadricula[0][0][1]) + "]")
+    print("c2 -> [" + str(tablero.cuadricula[0][1][0]) + "," + str(tablero.cuadricula[0][1][1]) + "]")
+    print("c3 -> [" + str(tablero.cuadricula[0][2][0]) + "," + str(tablero.cuadricula[0][2][1]) + "]")
+    print("c4 -> [" + str(tablero.cuadricula[0][3][0]) + "," + str(tablero.cuadricula[0][3][1]) + "]")
+    print("c5 -> [" + str(tablero.cuadricula[0][4][0]) + "," + str(tablero.cuadricula[0][4][1]) + "]")
+    print("Segunda fila")
+    print("c1 -> [" + str(tablero.cuadricula[1][0][0]) + "," + str(tablero.cuadricula[1][0][1]) + "]")
+    print("c2 -> [" + str(tablero.cuadricula[1][1][0]) + "," + str(tablero.cuadricula[1][1][1]) + "]")
+    print("c3 -> [" + str(tablero.cuadricula[1][2][0]) + "," + str(tablero.cuadricula[1][2][1]) + "]")
+    print("c4 -> [" + str(tablero.cuadricula[1][3][0]) + "," + str(tablero.cuadricula[1][3][1]) + "]")
+    print("c5 -> [" + str(tablero.cuadricula[1][4][0]) + "," + str(tablero.cuadricula[1][4][1]) + "]")
+    print("Tercera fila")
+    print("c1 -> [" + str(tablero.cuadricula[2][0][0]) + "," + str(tablero.cuadricula[2][0][1]) + "]")
+    print("c2 -> [" + str(tablero.cuadricula[2][1][0]) + "," + str(tablero.cuadricula[2][1][1]) + "]")
+    print("c3 -> [" + str(tablero.cuadricula[2][2][0]) + "," + str(tablero.cuadricula[2][2][1]) + "]")
+    print("c4 -> [" + str(tablero.cuadricula[2][3][0]) + "," + str(tablero.cuadricula[2][3][1]) + "]")
+    print("c5 -> [" + str(tablero.cuadricula[2][4][0]) + "," + str(tablero.cuadricula[2][4][1]) + "]")
+    print("Cuarta fila")
+    print("c1 -> [" + str(tablero.cuadricula[3][0][0]) + "," + str(tablero.cuadricula[3][0][1]) + "]")
+    print("c2 -> [" + str(tablero.cuadricula[3][1][0]) + "," + str(tablero.cuadricula[3][1][1]) + "]")
+    print("c3 -> [" + str(tablero.cuadricula[3][2][0]) + "," + str(tablero.cuadricula[3][2][1]) + "]")
+    print("c4 -> [" + str(tablero.cuadricula[3][3][0]) + "," + str(tablero.cuadricula[3][3][1]) + "]")
+    print("c5 -> [" + str(tablero.cuadricula[3][4][0]) + "," + str(tablero.cuadricula[3][4][1]) + "]")
+    print("Quinta fila")
+    print("c1 -> [" + str(tablero.cuadricula[4][0][0]) + "," + str(tablero.cuadricula[4][0][1]) + "]")
+    print("c2 -> [" + str(tablero.cuadricula[4][1][0]) + "," + str(tablero.cuadricula[4][1][1]) + "]")
+    print("c3 -> [" + str(tablero.cuadricula[4][2][0]) + "," + str(tablero.cuadricula[4][2][1]) + "]")
+    print("c4 -> [" + str(tablero.cuadricula[4][3][0]) + "," + str(tablero.cuadricula[4][3][1]) + "]")
+    print("c5 -> [" + str(tablero.cuadricula[4][4][0]) + "," + str(tablero.cuadricula[4][4][1]) + "]")
+
 def mostrarTablero(tablero):
     maxV = tamSubListaMasGrande(tablero.listaV)
     maxH = tamSubListaMasGrande(tablero.listaH)
@@ -57,14 +89,15 @@ def mostrarTablero(tablero):
         else:
             print("+---", end = "")
     print("+", end = "")
-    for k in range(tablero.nfil):
+    for f in range(tablero.nfil):
         print("\n", end = "")
+        j = 0
         for c in range((tablero.ncol * 4) + 1):
             if(c == 0 or c % 4 == 0):
                 if(c == 0):
                     print("|", end = "")
-                    for entero in tablero.listaV[k]:
-                        diferencia = maxV - len(tablero.listaV[k]) 
+                    for entero in tablero.listaV[f]:
+                        diferencia = maxV - len(tablero.listaV[f]) 
                         if(diferencia == 0):
                             print(str(entero), end = "")
                         elif(diferencia > 0):
@@ -73,7 +106,11 @@ def mostrarTablero(tablero):
                 else:
                     print("|", end = "")
             elif(c % 2 == 0 and not c % 4 == 0):
-                print(" ", end = "")
+                if(tablero.cuadricula[f][j][1] == True):
+                    print("X", end = "")
+                else:
+                    print(" ", end = "")
+                j+=1
             else:
                 print(" ", end = "")
         print("\n", end = "")
@@ -83,9 +120,6 @@ def mostrarTablero(tablero):
             else:
                 print("+---", end = "")
         print("+", end = "")
-
-
-
 
 def jugar():
     print("\t\t\nEscojer un tablero de juego\n\n" 
@@ -103,12 +137,25 @@ def jugar():
 
     file = open(PATH, "r")
 
-    salir = False
-    while(salir != True):
-        mostrarTablero(Tablero.desdeJson(file))
+    tablero = Tablero.desdeJson(file)
 
-        nfil = input("\n\n\t\tDigita el numero de fila: ")
-        ncol = input("\n\t\tDigita el numero de columna: ")
+    seguir = 's'
+    while(seguir != 'n'):
+        mostrarTablero(tablero)
+
+        nfil = int(input("\n\n\t\tDigita el numero de fila: "))
+        ncol = int(input("\n\t\tDigita el numero de columna: "))
+
+        if(nfil < tablero.nfil and ncol < tablero.ncol):
+            if(tablero.cuadricula[nfil][ncol][1] == False):
+                tablero.cuadricula[nfil][ncol][1] = True 
+            else:
+                tablero.cuadricula[nfil][ncol][1] = False
+        
+        seguir = input("\n\t\tDesea continuar marcando casillas? (s:si/n:no): ")
+
+        if(seguir == 'n'):
+            Tablero.validar(tablero)
 
 #######################################################
 

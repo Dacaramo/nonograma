@@ -6,13 +6,28 @@ class Tablero:
     self.ncol = len(listaH)
     self.listaV = listaV
     self.listaH = listaH
-    self.cuadricula = [[]] #[.][.][0] -> Lo que debería ir - [.][.][1] -> Lo que el usuario coloca
+
+    cuadricula = [[[]]]
+    for f in range(self.nfil):
+      cuadricula.append([])
+      for c in range(self.ncol):
+        cuadricula[f].append([])
+        cuadricula[f][c].append(False)
+        cuadricula[f][c].append(False)
+
+    self.cuadricula = cuadricula 
 
   @staticmethod
   def desdeJson(file):
     dic = json.load(file)
     return Tablero(**dic)
 
-  def llenarCuadricula(cuadricula):
+  @staticmethod
+  def validar(tablero):
     #TODO: Algoritmo para descifrar las posiciones requeridas para ganar y marcarlas en la cuadricula
-    return cuadricula
+    return tablero
+
+  @staticmethod
+  def reiniciar(tablero):
+    #TODO: Algoritmo para descifrar las posiciones requeridas para ganar y marcarlas en la cuadricula
+    return tablero
